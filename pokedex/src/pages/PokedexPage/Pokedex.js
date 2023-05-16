@@ -1,8 +1,10 @@
-/* 
+ 
 import { useEffect, useState } from 'react';
 
-import {Header} from '../../components/Header'
-import { PokeCard, PokemonCard } from '../../Components/PokemonCard/PokemonCard';
+
+
+import Header from '../../components/header/Header';
+import { PokemonCard } from '../../components/PokemonCard/PokemonCard';
 
 export const Pokedex = ({ capturedPokemon = [] }) => {
   const [pokemonList, setPokemonList] = useState(capturedPokemon);
@@ -25,7 +27,7 @@ export const Pokedex = ({ capturedPokemon = [] }) => {
       <Header/>
       <ul>
         {pokemonList.map((pokemon) => (
-          <PokeCard
+          <PokemonCard
             pokemons={{ data: pokemon }}
             key={pokemon.id}
             captured={true}
@@ -35,4 +37,4 @@ export const Pokedex = ({ capturedPokemon = [] }) => {
       </ul>
     </div>
   );
-}; */
+}; 

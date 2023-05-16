@@ -1,14 +1,16 @@
-/* import react, { useEffect, useState } from 'react'
+ import react, { useEffect, useState } from 'react'
 
 
 import axios, { all } from 'axios'
-import { getColors } from '../../utils/TypeColor'
-import { getTypes } from '../../utils/PokeType'
-import { Containerlist, Displaynone } from './styledList'
-import { PokeDetails } from '../Details/PokeDetails'
 
-import { PokeCard } from '../../Components/PokemonCard/PokemonCard'
-import { Header } from '../../Components/Header/Header'
+import { Containerlist, Displaynone } from './listStyled'
+import {Details}  from '../PokemonDetailPage/Detail'
+import { getColors } from '../../utils/getColors'
+import { getTypes } from '../../utils/getTypes'
+import { PokemonCard } from '../../components/PokemonCard/PokemonCard'
+import Header from '../../components/header/Header'
+
+
 
 export const List =(props)=>{
     const cardColor = getColors
@@ -29,11 +31,11 @@ export const List =(props)=>{
         <div>
             <Header/>
             <Containerlist>
-                {pokemons.map((pokemons)=>{return(<PokeCard pokemons={pokemons} cardColor={cardColor} getTypes={pokeType}/>)})}
+                {pokemons.map((pokemons)=>{return(<PokemonCard pokemons={pokemons} cardColor={cardColor} getTypes={pokeType}/>)})}
             </Containerlist>
             <Displaynone>
-            <PokeDetails pokemons={pokemons} cardColor={cardColor} getTypes={pokeType}/>
+            <Details pokemons={pokemons} cardColor={cardColor} getTypes={pokeType}/>
             </Displaynone>
         </div>
     )
-}  */
+}  

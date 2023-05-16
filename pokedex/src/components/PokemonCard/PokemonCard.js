@@ -1,7 +1,10 @@
-/* 
- import pokeball from '../../assets/pokebola.png' 
 
-import { CatchButton, Container, Containerimg, PokemonName, PokemonNumber, TypesContainer } from "./cardStyled";
+ import { useEffect, useState } from 'react';
+import pokeball from '../../assets/pokebola.png' 
+import { getColors } from '../../utils/getColors';
+import { getTypes } from '../../utils/getTypes';
+
+import { CatchButton, Container, Containerimg, Pokeball, Pokemon, PokemonName, PokemonNumber, TypesContainer } from "./cardStyled";
 
 
 export const PokemonCard = (props) => {
@@ -57,4 +60,4 @@ export const PokemonCard = (props) => {
       <Pokeball src={pokeball} alt="pokeball" />
     </Container>
   )
-} */
+} 

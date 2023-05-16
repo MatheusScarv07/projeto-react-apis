@@ -1,7 +1,8 @@
-/* import React, { useEffect, useState } from 'react';
+ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Header } from '../../Components/Header/Header';
-import { BaseStates, CardBack, CardContainer, CardFront, ContainerDetails, FrontBackImg, Info, Moves, NameImg, Pokemon } from './styledDetails';
+
+import { BaseStates, CardBack, CardContainer, CardFront, ContainerDetails, FrontBackImg, Info, Moves, NameImg, Pokemon } from './detailStyled';
+import Header from '../../components/header/Header';
 
 
 export const Details = () => {
@@ -56,4 +57,4 @@ export const Details = () => {
       </ContainerDetails>
     </div>
   );
-}; */
+}; 

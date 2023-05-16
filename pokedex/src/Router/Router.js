@@ -1,7 +1,8 @@
-/* import { BrowserRouter, Routes, Route } from "react-router-dom";
+ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Pokedex } from "../pages/PokedexPage/Pokedex";
 import { Details } from "../pages/PokemonDetailPage/Detail";
 import { List } from "../pages/PokemonListPage/List";
+
 
 
 
@@ -17,4 +18,4 @@ export const Router = () => {
       </Routes>
     </BrowserRouter>
     )
-} */
+} 
