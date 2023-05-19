@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
+import { useEffect, useState } from "react";
+import pokeball from "../../assets/pokebola.png";
 import {
+  BackeFrontImg,
   BaseStates,
   CardBack,
   CardContainer,
@@ -10,10 +10,14 @@ import {
   FrontBackImg,
   Info,
   Moves,
+  MovesPoke,
   NameImg,
+  PokeballD,
   Pokemon,
+  PokemonNameD,
 } from "./detailStyled";
 import Header from "../../components/header/Header";
+import { useParams } from "react-router-dom";
 
 export const Details = () => {
   const { id } = useParams();
@@ -34,6 +38,7 @@ export const Details = () => {
   if (pokemon === null) {
     return <div>Loading...</div>;
   }
+  console.log(pokemon);
 
   return (
     <div>
@@ -42,28 +47,44 @@ export const Details = () => {
         <CardContainer>
           <FrontBackImg>
             <CardFront>
-              <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+              <BackeFrontImg
+                src={pokemon.sprites.front_default}
+                alt={pokemon.name}
+              />
             </CardFront>
             <CardBack>
-              <img src={pokemon.sprites.back_default} alt={pokemon.name} />
+              <BackeFrontImg
+                src={pokemon.sprites.back_default}
+                alt={pokemon.name}
+              />
             </CardBack>
           </FrontBackImg>
           <BaseStates>
             <ul>
-              {pokemon.types.map((type) => (
-                <li key={type.slot}>{type.type.name}</li>
+              {pokemon.stats.map((type) => (
+                <li key={type.slot}>
+                  {type.stat.name} : {type.base_stat}
+                </li>
               ))}
             </ul>
           </BaseStates>
           <Info>
             <NameImg>
-              <h1>{pokemon.name}</h1>
+              <PokemonNameD>{pokemon.name}</PokemonNameD>
               <Pokemon src={pokemon.sprites.front_default} alt={pokemon.name} />
             </NameImg>
             <Moves>
-              <p>Movements</p>
+              <ul>
+                <MovesPoke>{pokemon.moves[0].move.name}</MovesPoke>
+                <MovesPoke>{pokemon.moves[1].move.name}</MovesPoke>
+                <MovesPoke>{pokemon.moves[2].move.name}</MovesPoke>
+                <MovesPoke>{pokemon.moves[3].move.name}</MovesPoke>
+                <MovesPoke>{pokemon.moves[4].move.name}</MovesPoke>
+                <MovesPoke>{pokemon.moves[5].move.name}</MovesPoke>
+              </ul>
             </Moves>
           </Info>
+          <PokeballD src={pokeball} alt="pokeball" />
         </CardContainer>
       </ContainerDetails>
     </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import pokeball from "../../assets/pokebola.png";
-import { getColors } from "../../utils/getColors";
 import { getTypes } from "../../utils/getTypes";
+import { getColors } from "../../utils/getColors";
 
 import {
   CatchButton,
@@ -14,66 +14,60 @@ import {
   TypesContainer,
 } from "./cardStyled";
 
-export const PokemonCard = (props) => {
-  const types = props.pokemons.data.types.map((type) =>
-    getTypes(type.type.name)
-  );
-  const color = props.pokemons.data.types.map((typecolor) =>
-    getColors(typecolor.type.name)
-  );
-
+export const PokemonCard = ({ pokemons, onRemove, onCapturemsg }) => {
   const [captured, setCaptured] = useState(false);
 
   useEffect(() => {
-    const capturedPokemon = JSON.parse(localStorage.getItem("capturedPokemon"));
-    if (capturedPokemon && capturedPokemon.includes(props.pokemons.data.id)) {
+    const capturedPokemons =
+      JSON.parse(localStorage.getItem("capturedPokemons")) || {};
+    if (capturedPokemons[pokemons.id]) {
       setCaptured(true);
     }
-  }, [props.pokemons.data.id]);
+  }, [pokemons.id]);
 
-  const capturePokemon = (pokemon) => {
-    let capturedPokemon = JSON.parse(localStorage.getItem("capturedPokemon"));
-    if (!Array.isArray(capturedPokemon)) {
-      capturedPokemon = [];
-    }
-    capturedPokemon.push(pokemon.id);
-    localStorage.setItem("capturedPokemon", JSON.stringify(capturedPokemon));
+  const types = pokemons.types.map((type) => getTypes(type.type.name));
+  const color = pokemons.types.map((typecolor) =>
+    getColors(typecolor.type.name)
+  );
+
+  const capturePokemon = () => {
     setCaptured(true);
+    const capturedPokemons =
+      JSON.parse(localStorage.getItem("capturedPokemons")) || {};
+    capturedPokemons[pokemons.id] = pokemons;
+    localStorage.setItem("capturedPokemons", JSON.stringify(capturedPokemons));
+    onCapturemsg();
   };
 
-  const removePokemon = (pokemon) => {
-    let capturedPokemon = JSON.parse(localStorage.getItem("capturedPokemon"));
-    capturedPokemon = capturedPokemon.filter((id) => id !== pokemon.id);
-    localStorage.setItem("capturedPokemon", JSON.stringify(capturedPokemon));
+  const releasePokemon = () => {
     setCaptured(false);
+    const capturedPokemons =
+      JSON.parse(localStorage.getItem("capturedPokemons")) || {};
+    delete capturedPokemons[pokemons.id];
+    localStorage.setItem("capturedPokemons", JSON.stringify(capturedPokemons));
+    onRemove(pokemons.id);
   };
 
   return (
     <Container color={color}>
       <div>
-        <PokemonNumber>{props.pokemons.data.id}</PokemonNumber>
-        <PokemonName>{props.pokemons.data.name}</PokemonName>
+        <PokemonNumber>{pokemons.id}</PokemonNumber>
+        <PokemonName>{pokemons.name}</PokemonName>
         <TypesContainer>
           {types.map((typeUrl) => (
-            <img src={typeUrl} alt="" />
+            <img src={typeUrl} alt="" key={typeUrl} />
           ))}
         </TypesContainer>
-        <a href={`/list/detail/${props.pokemons.data.id}`}>See details</a>
+        <a href={`/list/detail/${pokemons.id}`}>Details</a>
       </div>
       <Containerimg>
-        {
-          <Pokemon
-            src={`${props.pokemons.data.sprites.front_default}`}
-            alt=""
-          />
-        }
-        {captured ? (
-          <CatchButton onClick={() => removePokemon(props.pokemons.data)}>
-            To remove
-          </CatchButton>
-        ) : (
-          <CatchButton onClick={() => capturePokemon?.(props.pokemons.data)}>
-            Capture!
+        <Pokemon src={pokemons.sprites.front_default} alt="" />
+        {onRemove && (
+          <CatchButton onClick={releasePokemon}>To remove</CatchButton>
+        )}
+        {!onRemove && (
+          <CatchButton onClick={capturePokemon} disabled={captured}>
+            {captured ? "Captured" : "Capture"}
           </CatchButton>
         )}
       </Containerimg>
