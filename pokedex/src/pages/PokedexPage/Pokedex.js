@@ -1,16 +1,13 @@
- 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-
-
-import Header from '../../components/header/Header';
-import { PokemonCard } from '../../components/PokemonCard/PokemonCard';
+import Header from "../../components/header/Header";
+import { PokemonCard } from "../../components/PokemonCard/PokemonCard";
 
 export const Pokedex = ({ capturedPokemon = [] }) => {
   const [pokemonList, setPokemonList] = useState(capturedPokemon);
 
   useEffect(() => {
-    const pokemon = localStorage.getItem('capturedPokemon');
+    const pokemon = localStorage.getItem("capturedPokemon");
     if (pokemon) {
       setPokemonList(JSON.parse(pokemon));
     }
@@ -19,12 +16,12 @@ export const Pokedex = ({ capturedPokemon = [] }) => {
   const removePokemon = (id) => {
     const filteredList = pokemonList.filter((pokemon) => pokemon.id !== id);
     setPokemonList(filteredList);
-    localStorage.setItem('capturedPokemon', JSON.stringify(filteredList));
+    localStorage.setItem("capturedPokemon", JSON.stringify(filteredList));
   };
 
   return (
     <div>
-      <Header/>
+      <Header />
       <ul>
         {pokemonList.map((pokemon) => (
           <PokemonCard
@@ -37,4 +34,4 @@ export const Pokedex = ({ capturedPokemon = [] }) => {
       </ul>
     </div>
   );
-}; 
+};

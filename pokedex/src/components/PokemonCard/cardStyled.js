@@ -9,8 +9,7 @@ export const Container = styled.div`
   display: flex;
   position: relative;
   margin: 50px;
-  color:black;
-  
+  color: black;
 `;
 
 export const PokemonNumber = styled.p`
@@ -67,16 +66,15 @@ export const CatchButton = styled.button`
 `;
 
 export const Pokemon = styled.img`
-position: absolute;
-width: 220px;
-left: 153px;
-top: -85px;
-`
+  position: absolute;
+  width: 220px;
+  left: 153px;
+  top: -85px;
+`;
 
 export const Containerimg = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-
-`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
