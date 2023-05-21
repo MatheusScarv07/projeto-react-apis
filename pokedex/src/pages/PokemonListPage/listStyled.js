@@ -6,7 +6,8 @@ export const Containerlist = styled.div`
   align-items: center;
   justify-content: center;
   background: #dddddd;
-  padding: 50px 10px;
+
+  width: 100vw;
 `;
 
 export const Displaynone = styled.div`

@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
 export const Containerpokedex = styled.div`
-  background-color: gray;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background: #dddd;
+
   width: 100vw;
-  height: 100vh;
+   height: 100vh; 
 `;

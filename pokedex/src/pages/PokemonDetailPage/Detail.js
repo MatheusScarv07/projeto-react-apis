@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
-import pokeball from "../../assets/pokebola.png";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import Header from "../../components/header/Header";
 import {
   BackeFrontImg,
+  BaseList,
   BaseStates,
   CardBack,
   CardContainer,
@@ -9,15 +11,26 @@ import {
   ContainerDetails,
   FrontBackImg,
   Info,
+  ListItem,
   Moves,
   MovesPoke,
   NameImg,
   PokeballD,
+  Pokeimg,
   Pokemon,
   PokemonNameD,
+  ProgressBar,
+  ProgressFill,
+  Title,
 } from "./detailStyled";
-import Header from "../../components/header/Header";
-import { useParams } from "react-router-dom";
+import {
+  PokemonName,
+  PokemonNumber,
+  TypesContainer,
+} from "../../components/PokemonCard/cardStyled";
+import pokeball from "../../assets/pokebola.png";
+import { getTypes } from "../../utils/getTypes";
+import { getColors } from "../../utils/getColors";
 
 export const Details = () => {
   const { id } = useParams();
@@ -38,13 +51,16 @@ export const Details = () => {
   if (pokemon === null) {
     return <div>Loading...</div>;
   }
-  console.log(pokemon);
-
+  const types = pokemon.types.map((type) => getTypes(type.type.name));
+  const color = pokemon.types.map((typecolor) =>
+    getColors(typecolor.type.name)
+  );
   return (
     <div>
       <Header />
       <ContainerDetails>
-        <CardContainer>
+        <h1>Details</h1>
+        <CardContainer color={color}>
           <FrontBackImg>
             <CardFront>
               <BackeFrontImg
@@ -60,18 +76,27 @@ export const Details = () => {
             </CardBack>
           </FrontBackImg>
           <BaseStates>
-            <ul>
+            <Title>Base States</Title>
+            <BaseList>
               {pokemon.stats.map((type) => (
-                <li key={type.slot}>
-                  {type.stat.name} : {type.base_stat}
-                </li>
+                <ListItem key={type.slot}>
+                  {type.stat.name}:{type.base_stat}
+                  <ProgressBar>
+                    <ProgressFill value={type.base_stat} />
+                  </ProgressBar>
+                </ListItem>
               ))}
-            </ul>
+            </BaseList>
           </BaseStates>
           <Info>
             <NameImg>
+              <PokemonNumber>#{pokemon.id}</PokemonNumber>
               <PokemonNameD>{pokemon.name}</PokemonNameD>
-              <Pokemon src={pokemon.sprites.front_default} alt={pokemon.name} />
+              <TypesContainer>
+                {types.map((typeUrl) => (
+                  <img src={typeUrl} alt="" key={typeUrl} />
+                ))}
+              </TypesContainer>
             </NameImg>
             <Moves>
               <ul>
@@ -84,7 +109,10 @@ export const Details = () => {
               </ul>
             </Moves>
           </Info>
-          <PokeballD src={pokeball} alt="pokeball" />
+          <Pokeimg>
+            <PokeballD src={pokeball} alt="pokeball" />
+          </Pokeimg>
+          <Pokemon src={pokemon.sprites.front_default} alt={pokemon.name} />
         </CardContainer>
       </ContainerDetails>
     </div>

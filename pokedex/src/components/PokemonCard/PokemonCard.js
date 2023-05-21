@@ -7,15 +7,23 @@ import {
   CatchButton,
   Container,
   Containerimg,
+  DetailsLink,
   Pokeball,
   Pokemon,
   PokemonName,
   PokemonNumber,
   TypesContainer,
 } from "./cardStyled";
+import { Displaynone } from "../../pages/PokemonListPage/listStyled";
+import { Details } from "../../pages/PokemonDetailPage/Detail";
+import { PokeballD } from "../../pages/PokemonDetailPage/detailStyled";
 
 export const PokemonCard = ({ pokemons, onRemove, onCapturemsg }) => {
   const [captured, setCaptured] = useState(false);
+  const types = pokemons.types.map((type) => getTypes(type.type.name));
+  const color = pokemons.types.map((typecolor) =>
+    getColors(typecolor.type.name)
+  );
 
   useEffect(() => {
     const capturedPokemons =
@@ -24,11 +32,6 @@ export const PokemonCard = ({ pokemons, onRemove, onCapturemsg }) => {
       setCaptured(true);
     }
   }, [pokemons.id]);
-
-  const types = pokemons.types.map((type) => getTypes(type.type.name));
-  const color = pokemons.types.map((typecolor) =>
-    getColors(typecolor.type.name)
-  );
 
   const capturePokemon = () => {
     setCaptured(true);
@@ -50,16 +53,6 @@ export const PokemonCard = ({ pokemons, onRemove, onCapturemsg }) => {
 
   return (
     <Container color={color}>
-      <div>
-        <PokemonNumber>{pokemons.id}</PokemonNumber>
-        <PokemonName>{pokemons.name}</PokemonName>
-        <TypesContainer>
-          {types.map((typeUrl) => (
-            <img src={typeUrl} alt="" key={typeUrl} />
-          ))}
-        </TypesContainer>
-        <a href={`/list/detail/${pokemons.id}`}>Details</a>
-      </div>
       <Containerimg>
         <Pokemon src={pokemons.sprites.front_default} alt="" />
         {onRemove && (
@@ -71,7 +64,20 @@ export const PokemonCard = ({ pokemons, onRemove, onCapturemsg }) => {
           </CatchButton>
         )}
       </Containerimg>
-      <Pokeball src={pokeball} alt="pokeball" />
+      <div>
+        <PokemonNumber>#{pokemons.id}</PokemonNumber>
+        <PokemonName>{pokemons.name}</PokemonName>
+        <TypesContainer>
+          {types.map((typeUrl) => (
+            <img src={typeUrl} alt="" key={typeUrl} />
+          ))}
+        </TypesContainer>
+        <DetailsLink href={`/list/detail/${pokemons.id}`}>Details</DetailsLink>
+      </div>
+      <PokeballD src={pokeball} alt="pokeball" />
+      <Displaynone>
+        <Details pokemons={pokemons} color={color} type={types} />
+      </Displaynone>
     </Container>
   );
 };
